@@ -4,7 +4,7 @@ document.querySelector('button').addEventListener('click', () => {
   if (!url) {
     alert('Por favor, cole um link válido!');
     return;
-  } // <-- fecha o if aqui
+  } // fechamento do if
 
   fetch('/download', {
     method: 'POST',
