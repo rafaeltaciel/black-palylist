@@ -12,13 +12,13 @@ def download():
     # Pega JSON ou form data
     data = request.get_json(silent=True) or request.form
     url = data.get('url')
-    format_type = data.get('format', 'mp3').lower()  # garante lowercase
+    format_type = data.get('format', 'mp3').lower()
 
     if not url:
         return jsonify({'error': 'URL não fornecida'}), 400
 
     if format_type not in ['mp3', 'mp4']:
-        return jsonify({'error': 'Formato inválido'}), 400
+        return jsonify({'error': 'Formato inválido. Use "mp3" ou "mp4".'}), 400
 
     ydl_opts = {}
 
@@ -47,15 +47,15 @@ def download():
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(url, download=True)
             filename = ydl.prepare_filename(info)
-            if format_type == 'mp3':
-                filename = os.path.splitext(filename)[0] + '.mp3'
-            elif format_type == 'mp4':
-                filename = os.path.splitext(filename)[0] + '.mp4'
+            # Ajusta extensão para o formato correto
+            base, _ = os.path.splitext(filename)
+            filename = base + ('.mp3' if format_type == 'mp3' else '.mp4')
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        return jsonify({'error': f'Falha ao baixar: {str(e)}'}), 500
 
     # Retorna o arquivo para download
     return send_from_directory(DOWNLOAD_FOLDER, os.path.basename(filename), as_attachment=True)
+
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
