@@ -20,12 +20,12 @@ def download_playlist():
 # Rota para servir index.html
 @app.route('/')
 def home():
-    return send_from_directory('static', 'index.html')
+    return send_from_directory('index.html')
 
 # Rota para servir arquivos estáticos (JS, CSS, imagens, etc)
 @app.route('/<path:filename>')
 def static_files(filename):
-    return send_from_directory('static', filename)
+    return send_from_directory( filename)
 
 if __name__ == '__main__':
     # Define pasta 'static' para arquivos estáticos
