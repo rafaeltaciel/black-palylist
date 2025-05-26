@@ -9,7 +9,7 @@ DOWNLOAD_FOLDER = 'downloads'
 os.makedirs(DOWNLOAD_FOLDER, exist_ok=True)
 
 # Carregue seu logo.png e converta para base64
-with open("logo.png", "rb") as image_file:
+with open("logo.jpg", "rb") as image_file:
     logo_base64 = base64.b64encode(image_file.read()).decode('utf-8')
 
 html = f"""
