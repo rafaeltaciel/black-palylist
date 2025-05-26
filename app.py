@@ -1,4 +1,5 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
+import os
 
 app = Flask(__name__)
 
@@ -16,14 +17,17 @@ def download_playlist():
     # Exemplo dummy de resposta:
     return jsonify({'message': 'Download iniciado', 'url': playlist_url})
 
-# Sua rota para servir index.html e arquivos estáticos continua igual
+# Rota para servir index.html
 @app.route('/')
 def home():
-    return send_from_directory('.', 'index.html')
+    return send_from_directory('static', 'index.html')
 
+# Rota para servir arquivos estáticos (JS, CSS, imagens, etc)
 @app.route('/<path:filename>')
 def static_files(filename):
-    return send_from_directory('.', filename)
+    return send_from_directory('static', filename)
 
 if __name__ == '__main__':
+    # Define pasta 'static' para arquivos estáticos
+    # Certifique-se de que os arquivos index.html, style.css, script.js, logo.jpg estão dentro da pasta 'static'
     app.run(debug=True)
