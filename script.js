@@ -1,14 +1,15 @@
 document.querySelector('button').addEventListener('click', () => {
   const url = document.querySelector('input[type="text"]').value.trim();
+
   if (!url) {
     alert('Por favor, cole um link válido!');
     return;
-  }
+  } // <-- fecha o if aqui
 
   fetch('/download', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ url, format: 'mp3' })  // aqui você pode mudar para 'mp4' se quiser
+    body: JSON.stringify({ url, format: 'mp3' })  // pode mudar para 'mp4' se quiser
   })
   .then(response => {
     if (!response.ok) throw new Error('Erro ao baixar o arquivo');
