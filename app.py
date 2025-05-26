@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_from_directory
+from flask import Flask, render_template_string, request, send_from_directory
 import yt_dlp
 import os
 
@@ -7,9 +7,32 @@ app = Flask(__name__)
 DOWNLOAD_FOLDER = 'downloads'
 os.makedirs(DOWNLOAD_FOLDER, exist_ok=True)
 
+html = """
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Download YouTube MP3/MP4</title>
+</head>
+<body>
+    <h1>Baixar vídeo do YouTube</h1>
+    <form method="POST" action="/download">
+        <label for="url">URL do vídeo:</label><br>
+        <input type="text" id="url" name="url" placeholder="Cole a URL aqui" required size="50"><br><br>
+        <label for="format">Formato:</label><br>
+        <select id="format" name="format">
+            <option value="mp3">MP3 (áudio)</option>
+            <option value="mp4">MP4 (vídeo)</option>
+        </select><br><br>
+        <button type="submit">Baixar</button>
+    </form>
+</body>
+</html>
+"""
+
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template_string(html)
 
 @app.route('/download', methods=['POST'])
 def download():
