@@ -1,31 +1,26 @@
-document.querySelector('button').addEventListener('click', () => {
-  const url = document.querySelector('input[type="text"]').value.trim();
-
+document.querySelector('#download button').addEventListener('click', async () => {
+  const input = document.querySelector('#download input');
+  const url = input.value.trim();
   if (!url) {
-    alert('Por favor, cole um link válido!');
+    alert('Por favor, cole o link da playlist.');
     return;
-  } // fechamento do if
+  }
 
-  fetch('/download', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ url, format: 'mp3' })  // pode mudar para 'mp4' se quiser
-  })
-  .then(response => {
-    if (!response.ok) throw new Error('Erro ao baixar o arquivo');
-    return response.blob();
-  })
-  .then(blob => {
-    // Cria um link para download automático do arquivo
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = 'playlist.mp3';  // ou .mp4, conforme o formato
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    URL.revokeObjectURL(link.href);
-  })
-  .catch(error => {
-    alert('Erro: ' + error.message);
-  });
+  try {
+    const response = await fetch('/download', { // endpoint do seu backend
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url }),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      alert('Download iniciado! ' + (data.message || ''));
+    } else {
+      alert('Erro: ' + (data.error || 'Erro desconhecido'));
+    }
+  } catch (err) {
+    alert('Erro na comunicação com o servidor: ' + err.message);
+  }
 });
