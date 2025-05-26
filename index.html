@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black Playlist - Downloader</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <header class="header">
+        <div class="logo-container">
+            <img src="logo.png" alt="Logo" class="logo">
+            <h1>Black Playlist</h1>
+        </div>
+        <nav class="menu">
+            <a href="#download">Download</a>
+            <a href="#instrucoes">Instruções</a>
+            <a href="#faq">FAQ</a>
+            <a href="#contato">Contato</a>
+        </nav>
+        <div class="menu-mobile" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+
+    <div id="mobile-menu" class="mobile-hidden">
+        <a href="#download">Download</a>
+        <a href="#instrucoes">Instruções</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contato">Contato</a>
+    </div>
+
+    <!-- Conteúdo -->
+    <main>
+        <section id="download">
+            <h2>Baixar Playlist</h2>
+            <p>Cole o link da sua playlist do YouTube abaixo para baixar.</p>
+            <input type="text" placeholder="Cole o link aqui...">
+            <button>Baixar</button>
+        </section>
+
+        <section id="instrucoes">
+            <h2>Instruções</h2>
+            <ul>
+                <li>Copie o link da playlist do YouTube.</li>
+                <li>Cole no campo acima.</li>
+                <li>Clique em "Baixar".</li>
+            </ul>
+        </section>
+
+        <section id="faq">
+            <h2>FAQ</h2>
+            <p><strong>O download é gratuito?</strong> Sim.</p>
+            <p><strong>Posso baixar playlists inteiras?</strong> Sim, esse é o foco do site.</p>
+        </section>
+
+        <section id="contato">
+            <h2>Contato</h2>
+            <p>Email: <a href="mailto:contato@blackplaylist.com">contato@blackplaylist.com</a></p>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer>
+        &copy; 2025 Black Playlist. Todos os direitos reservados.
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
